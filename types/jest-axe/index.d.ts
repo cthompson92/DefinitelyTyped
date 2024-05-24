@@ -1,15 +1,10 @@
-// Type definitions for jest-axe 3.5
-// Project: https://github.com/nickcolley/jest-axe
-// Definitions by: erbridge <https://github.com/erbridge>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
-
 /// <reference types="jest" />
 
-import { AxeResults, Result, RunOptions, Spec } from 'axe-core';
+import { AxeResults, ImpactValue, Result, RunOptions, Spec } from "axe-core";
 
 export interface JestAxeConfigureOptions extends RunOptions {
     globalOptions?: Spec | undefined;
+    impactLevels?: ImpactValue[];
 }
 
 /**
@@ -78,4 +73,10 @@ declare global {
 
     // axe-core depends on a global Node
     interface Node {}
+}
+
+declare module "@jest/expect" {
+    interface Matchers<R extends void | Promise<void>> {
+        toHaveNoViolations(): R;
+    }
 }
